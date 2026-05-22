@@ -1,8 +1,32 @@
 {
   "issue": 1,
   "date": "2026-05-22",
-  "keywords": ["Spotify AI팟캐스트", "딥페이크", "AI읽기교육", "가족여행프롬프트"],
+  "keywords": ["MetaAI한국출시", "Gemini3.5", "Spotify팟캐스트", "에이전트AI", "딥페이크", "AI읽기교육"],
   "tools": [
+    {
+      "title": "Meta AI, 드디어 한국 출시 — 인스타·페북 있으면 무료",
+      "source": "머니투데이",
+      "url": "https://www.mt.co.kr/tech/2026/05/13/2026051319542447421",
+      "threeLines": [
+        "5월 13일부터 한국에서 Meta AI 사용 가능. 페이스북이나 인스타 계정만 있으면 됨",
+        "사진 분석, 문서 처리, 콘텐츠 생성은 물론 동영상 생성까지 무료로 제공",
+        "ChatGPT·Gemini·Claude는 고급 기능에 월 2만 원 이상인데, Meta AI는 전부 무료"
+      ],
+      "simpleExplain": "인스타그램 계정만 있으면 AI 동영상 생성까지 공짜로 쓸 수 있게 됨",
+      "whyItMatters": "유료 AI에 부담을 느꼈던 일반인에게 가장 접근성 높은 선택지. 인스타·페북·메신저에 바로 통합되어 별도 앱 설치도 필요 없음"
+    },
+    {
+      "title": "구글 Gemini, 대폭 업그레이드 — 무료 사용자도 바로 적용",
+      "source": "Google I/O 2026",
+      "url": "https://blog.google/intl/ko-kr/google-io-2026-collection-kr/",
+      "threeLines": [
+        "Gemini 3.5 Flash: 이전보다 4배 빠르고 가격은 절반. 무료 사용자도 즉시 적용",
+        "Gemini Omni: 텍스트+사진+영상을 조합해 새로운 영상을 만들어주는 AI",
+        "Gemini Spark: 목표만 정해주면 24시간 알아서 일하는 AI 에이전트"
+      ],
+      "simpleExplain": "구글 AI가 완전히 새로워졌고, 무료로도 꽤 많은 걸 할 수 있게 됨",
+      "whyItMatters": "구글 검색, 지메일, 유튜브 등 매일 쓰는 서비스에 바로 적용됨. AI를 따로 찾아 쓸 필요 없이 일상에 자연스럽게 들어옴"
+    },
     {
       "title": "Spotify, AI가 만들어주는 '나만의 팟캐스트' 출시",
       "source": "Spotify Newsroom",
@@ -14,6 +38,18 @@
       ],
       "simpleExplain": "나만을 위한 맞춤 팟캐스트를 AI가 뚝딱 만들어주는 시대가 옴",
       "whyItMatters": "출퇴근길이나 산책하면서 나에게 딱 맞는 콘텐츠를 들을 수 있음. 한국 출시는 미정이지만, AI가 '듣는 콘텐츠'까지 바꾸고 있다는 신호"
+    },
+    {
+      "title": "xAI '그록 빌드' 출시 — AI가 코드를 대신 짜주는 시대",
+      "source": "AI타임스",
+      "url": "https://www.aitimes.com/news/articleView.html?idxno=210580",
+      "threeLines": [
+        "일론 머스크의 xAI가 AI 코딩 에이전트 '그록 빌드'를 5월 14일 공개",
+        "사람이 목표만 정해주면 AI가 알아서 코드를 작성하고 실행까지 함",
+        "구글(Gemini Spark), OpenAI(Codex), Anthropic(Claude Code)도 비슷한 도구를 출시"
+      ],
+      "simpleExplain": "이제 모든 빅테크가 '사람 대신 일하는 AI 에이전트'를 내놓고 있음",
+      "whyItMatters": "코딩 도구지만 의미는 더 큼. AI가 단순 대화를 넘어 '직접 행동하는' 에이전트 시대로 빠르게 넘어가고 있다는 신호"
     }
   ],
   "policy": [
