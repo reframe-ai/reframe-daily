@@ -31,31 +31,29 @@ const { title, url } = Astro.props;
 
 <script>
   document.getElementById('link-copy')?.addEventListener('click', async (e) => {
-    const url = (e.currentTarget as HTMLElement).dataset.url || '';
+    const url = window.location.href;
     await navigator.clipboard.writeText(url);
     (e.currentTarget as HTMLElement).textContent = '복사됨!';
     setTimeout(() => { (e.currentTarget as HTMLElement).textContent = '링크 복사'; }, 1500);
   });
 
-  // 카카오톡 공유는 Kakao SDK 로드 후 동작
   document.getElementById('kakao-share')?.addEventListener('click', (e) => {
     const el = e.currentTarget as HTMLElement;
     const title = el.dataset.title || '';
-    const url = el.dataset.url || '';
+    const url = window.location.href;
 
     if (typeof (window as any).Kakao !== 'undefined' && (window as any).Kakao.Share) {
       (window as any).Kakao.Share.sendDefault({
         objectType: 'feed',
         content: {
           title: title,
-          description: 'Re:Frame AI 뉴스 — AI 입문자와 교육자를 위한 큐레이션',
+          description: '오늘의 AI — AI 입문자와 교육자를 위한 뉴스 큐레이션',
           imageUrl: '',
           link: { mobileWebUrl: url, webUrl: url },
         },
         buttons: [{ title: '뉴스 보기', link: { mobileWebUrl: url, webUrl: url } }],
       });
     } else {
-      // SDK 미로드 시 URL 복사로 폴백
       navigator.clipboard.writeText(url);
       alert('카카오톡 SDK가 로드되지 않았습니다. 링크가 복사되었습니다.');
     }
