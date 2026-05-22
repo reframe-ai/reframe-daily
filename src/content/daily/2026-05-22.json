@@ -1,7 +1,7 @@
 {
   "issue": 1,
   "date": "2026-05-22",
-  "keywords": ["Spotify AI팟캐스트", "AI쇼핑에이전트", "딥페이크", "AI읽기교육", "가족여행프롬프트"],
+  "keywords": ["Spotify AI팟캐스트", "딥페이크", "AI읽기교육", "가족여행프롬프트"],
   "tools": [
     {
       "title": "Spotify, AI가 만들어주는 '나만의 팟캐스트' 출시",
@@ -14,18 +14,6 @@
       ],
       "simpleExplain": "나만을 위한 맞춤 팟캐스트를 AI가 뚝딱 만들어주는 시대가 옴",
       "whyItMatters": "출퇴근길이나 산책하면서 나에게 딱 맞는 콘텐츠를 들을 수 있음. 한국 출시는 미정이지만, AI가 '듣는 콘텐츠'까지 바꾸고 있다는 신호"
-    },
-    {
-      "title": "AI 쇼핑 에이전트, 2026년 쇼핑 방식을 바꾼다",
-      "source": "Fast Company",
-      "url": "https://www.fastcompany.com/91461336/ai-will-change-the-way-you-shop-in-2026",
-      "threeLines": [
-        "AI가 내 필요를 파악해서 물건을 찾고, 비교하고, 구매까지 대신 해줌",
-        "\"아이 생일 선물로 안전한 장난감 찾아줘\"라고 말하면 AI가 알아서 처리",
-        "장보기, 선물 고르기, 여행 준비 등에서 시간과 노력을 크게 줄여줌"
-      ],
-      "simpleExplain": "이제 쇼핑은 내가 하는 게 아니라 AI가 대신 해주는 일이 됨",
-      "whyItMatters": "바쁜 직장인과 부모들의 일상이 편해지고, 가격 비교나 후기 읽는 수고를 덜 수 있음. 이미 구글, 아마존 등이 도입 중"
     }
   ],
   "policy": [
@@ -43,8 +31,8 @@
     },
     {
       "title": "AI가 아이의 읽기를 1:1로 코칭 — 미국 학교에 빠르게 확산 중",
-      "source": "Amira Learning",
-      "url": "https://amiralearning.com/newsroom",
+      "source": "Education Week",
+      "url": "https://www.edweek.org/technology/ai-tutors-are-now-common-in-early-reading-instruction-do-they-actually-work/2025/11",
       "threeLines": [
         "AI가 아이가 책 읽는 소리를 듣고 실시간으로 피드백을 주며 개인별 튜터링을 함",
         "미시간, 메릴랜드, 조지아 등 미국 여러 주에서 공식 읽기 평가 도구로 승인",
