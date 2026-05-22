@@ -32,10 +32,10 @@ let newsNumber = 0;
 
     <!-- 헤더 -->
     <header class="text-center mb-14 pt-6">
-      <p class="text-lg text-sub mb-4">
+      <p class="text-base text-sub mb-3">
         Vol.{String(d.issue).padStart(3, '0')} · {d.date}
       </p>
-      <h1 class="text-6xl md:text-7xl font-bold text-main">
+      <h1 class="text-5xl md:text-6xl font-bold text-main">
         오늘의 <span class="text-accent">AI</span>
       </h1>
     </header>
@@ -43,7 +43,7 @@ let newsNumber = 0;
     <!-- 키워드 -->
     <div class="flex flex-wrap justify-center gap-2.5 mb-16">
       {d.keywords.map(kw => (
-        <span class="text-base text-accent bg-accent/8 px-5 py-2.5 rounded-full font-medium">
+        <span class="text-sm text-accent bg-accent/8 px-4 py-2 rounded-full font-medium">
           #{kw}
         </span>
       ))}

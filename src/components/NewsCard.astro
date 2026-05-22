@@ -12,50 +12,50 @@ interface Props {
 const { number, title, source, url, threeLines, simpleExplain, whyItMatters } = Astro.props;
 ---
 
-<article class="py-14 border-b border-main/8 last:border-b-0">
+<article class="py-12 border-b border-main/8 last:border-b-0">
   <!-- 번호 -->
-  <div class="text-8xl font-bold text-accent/10 leading-none mb-6">
+  <div class="text-7xl font-bold text-accent/10 leading-none mb-5">
     {String(number).padStart(2, '0')}
   </div>
 
   <!-- 제목 -->
-  <h3 class="text-4xl md:text-5xl font-bold text-main leading-tight mb-10">
+  <h3 class="text-3xl md:text-4xl font-bold text-main leading-tight mb-8">
     {title}
   </h3>
 
   <!-- 핵심 3줄 -->
-  <div class="mb-10">
-    <p class="text-base font-bold text-sub/50 uppercase tracking-widest mb-5">핵심 3줄</p>
-    <ul class="space-y-4">
+  <div class="mb-8">
+    <p class="text-sm font-bold text-sub/50 uppercase tracking-widest mb-4">핵심 3줄</p>
+    <ul class="space-y-3">
       {threeLines.map(line => (
-        <li class="flex items-start gap-4 text-main/80">
-          <span class="w-2.5 h-2.5 rounded-full bg-accent mt-3 shrink-0"></span>
-          <span class="text-xl leading-relaxed">{line}</span>
+        <li class="flex items-start gap-3 text-main/80">
+          <span class="w-2 h-2 rounded-full bg-accent mt-2.5 shrink-0"></span>
+          <span class="text-lg leading-relaxed">{line}</span>
         </li>
       ))}
     </ul>
   </div>
 
   <!-- 쉽게 말하면 -->
-  <div class="bg-accent/5 rounded-2xl px-10 py-8 mb-6">
-    <p class="text-base font-bold text-accent mb-3">쉽게 말하면</p>
-    <p class="text-2xl font-medium text-main leading-relaxed">"{simpleExplain}"</p>
+  <div class="bg-accent/5 rounded-2xl px-8 py-6 mb-5">
+    <p class="text-sm font-bold text-accent mb-2">쉽게 말하면</p>
+    <p class="text-xl font-medium text-main leading-relaxed">"{simpleExplain}"</p>
   </div>
 
   <!-- 왜 중요하냐면 -->
-  <div class="bg-card-bg rounded-2xl px-10 py-8 mb-8">
-    <p class="text-base font-bold text-sub/60 mb-3">왜 중요하냐면</p>
-    <p class="text-lg text-main/70 leading-relaxed">{whyItMatters}</p>
+  <div class="bg-card-bg rounded-2xl px-8 py-6 mb-6">
+    <p class="text-sm font-bold text-sub/60 mb-2">왜 중요하냐면</p>
+    <p class="text-base text-main/70 leading-relaxed">{whyItMatters}</p>
   </div>
 
   <!-- 출처 + 원문 -->
   <div class="flex items-center justify-between">
-    <span class="text-base text-sub/40">{source}</span>
+    <span class="text-sm text-sub/40">{source}</span>
     <a
       href={url}
       target="_blank"
       rel="noopener"
-      class="text-lg text-accent font-medium hover:text-accent/70 transition"
+      class="text-base text-accent font-medium hover:text-accent/70 transition"
     >
       원문 보기 →
     </a>
