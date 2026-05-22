@@ -33,8 +33,10 @@ const { title, url } = Astro.props;
   document.getElementById('link-copy')?.addEventListener('click', async (e) => {
     const url = window.location.href;
     await navigator.clipboard.writeText(url);
-    (e.currentTarget as HTMLElement).textContent = '복사됨!';
-    setTimeout(() => { (e.currentTarget as HTMLElement).textContent = '링크 복사'; }, 1500);
+    const btn = e.currentTarget as HTMLElement;
+    btn.textContent = '복사되었습니다!';
+    btn.classList.add('text-accent');
+    setTimeout(() => { btn.textContent = '링크 복사'; btn.classList.remove('text-accent'); }, 2000);
   });
 
   document.getElementById('kakao-share')?.addEventListener('click', (e) => {
