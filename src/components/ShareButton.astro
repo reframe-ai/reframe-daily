@@ -50,14 +50,14 @@ const { title, url } = Astro.props;
         content: {
           title: title,
           description: '오늘의 AI — AI 입문자와 교육자를 위한 뉴스 큐레이션',
-          imageUrl: '',
+          imageUrl: 'https://reframe-daily.vercel.app/og-image.png',
           link: { mobileWebUrl: url, webUrl: url },
         },
         buttons: [{ title: '뉴스 보기', link: { mobileWebUrl: url, webUrl: url } }],
       });
     } else {
       navigator.clipboard.writeText(url);
-      alert('카카오톡 SDK가 로드되지 않았습니다. 링크가 복사되었습니다.');
+      alert('카카오톡 공유를 사용할 수 없습니다. 링크가 복사되었습니다.');
     }
   });
 </script>
