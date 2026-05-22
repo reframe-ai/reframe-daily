@@ -29,23 +29,23 @@ const { title, url } = Astro.props;
   </button>
 </div>
 
-<script>
-  document.getElementById('link-copy')?.addEventListener('click', async (e) => {
-    const url = window.location.href;
-    await navigator.clipboard.writeText(url);
-    const btn = e.currentTarget as HTMLElement;
+<script is:inline>
+  document.getElementById('link-copy').addEventListener('click', function(e) {
+    var url = window.location.href;
+    navigator.clipboard.writeText(url);
+    var btn = e.currentTarget;
     btn.textContent = '복사되었습니다!';
-    btn.classList.add('text-accent');
-    setTimeout(() => { btn.textContent = '링크 복사'; btn.classList.remove('text-accent'); }, 2000);
+    btn.style.color = '#C05440';
+    setTimeout(function() { btn.textContent = '링크 복사'; btn.style.color = ''; }, 2000);
   });
 
-  document.getElementById('kakao-share')?.addEventListener('click', (e) => {
-    const el = e.currentTarget as HTMLElement;
-    const title = el.dataset.title || '';
-    const url = window.location.href;
+  document.getElementById('kakao-share').addEventListener('click', function(e) {
+    var el = e.currentTarget;
+    var title = el.getAttribute('data-title') || '';
+    var url = window.location.href;
 
-    if (typeof (window as any).Kakao !== 'undefined' && (window as any).Kakao.Share) {
-      (window as any).Kakao.Share.sendDefault({
+    if (typeof Kakao !== 'undefined' && Kakao.isInitialized && Kakao.isInitialized()) {
+      Kakao.Share.sendDefault({
         objectType: 'feed',
         content: {
           title: title,

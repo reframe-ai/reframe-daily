@@ -19,14 +19,6 @@ const { title, description = 'AI 입문자와 교육자를 위한 AI 뉴스 큐�
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
     <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet" />
     <title>{title}</title>
-    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js" integrity="sha384-DKYJZ8NLiK8MN4/C5P2dtSmLQ4KwPaoqAfyA/DfmEc1VDxu4kyMheel0s8wfLXN" crossorigin="anonymous"></script>
-    <script is:inline>
-      window.addEventListener('DOMContentLoaded', function() {
-        if (typeof Kakao !== 'undefined' && !Kakao.isInitialized()) {
-          Kakao.init('39befc87c523e3338e189566633bacae');
-        }
-      });
-    </script>
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -89,5 +81,11 @@ const { title, description = 'AI 입문자와 교육자를 위한 AI 뉴스 큐�
         <p class="text-white/15 text-xs mt-8 text-center">&copy; 2026 Re:Frame. All rights reserved.</p>
       </div>
     </footer>
+    <script is:inline src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js"></script>
+    <script is:inline>
+      if (typeof Kakao !== 'undefined' && !Kakao.isInitialized()) {
+        Kakao.init('39befc87c523e3338e189566633bacae');
+      }
+    </script>
   </body>
 </html>
