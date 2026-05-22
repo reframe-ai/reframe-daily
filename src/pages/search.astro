@@ -8,11 +8,11 @@ const entries = (await getCollection('daily')).sort((a, b) => b.id.localeCompare
 const searchData = entries.map(entry => ({
   date: entry.id,
   issue: entry.data.issue,
-  editorNote: entry.data.editorNote,
+  keywords: entry.data.keywords,
   items: [
-    ...entry.data.tools.map(t => ({ ...t, category: '도구' })),
-    ...entry.data.policy.map(p => ({ ...p, category: '정책' })),
-    ...entry.data.prompts.map(p => ({ title: p.title, context: p.context, category: '프롬프트' })),
+    ...entry.data.tools.map(t => ({ title: t.title, simpleExplain: t.simpleExplain, threeLines: t.threeLines, category: '도구' })),
+    ...entry.data.policy.map(p => ({ title: p.title, simpleExplain: p.simpleExplain, threeLines: p.threeLines, category: '정책' })),
+    ...entry.data.prompts.map(p => ({ title: p.title, simpleExplain: '', threeLines: [], category: '프롬프트' })),
   ],
 }));
 ---
@@ -58,7 +58,7 @@ const searchData = entries.map(entry => ({
 
     searchData.forEach(issue => {
       issue.items.forEach(item => {
-        const text = [item.title, item.summary || '', item.context || '', ...(item.points || [])].join(' ').toLowerCase();
+        const text = [item.title, item.simpleExplain || '', ...(item.threeLines || [])].join(' ').toLowerCase();
         if (text.includes(q)) {
           matches.push({
             date: issue.date,
@@ -69,12 +69,13 @@ const searchData = entries.map(entry => ({
         }
       });
 
-      if (issue.editorNote.toLowerCase().includes(q)) {
+      const kwText = (issue.keywords || []).join(' ').toLowerCase();
+      if (kwText.includes(q)) {
         matches.push({
           date: issue.date,
           issue: issue.issue,
-          title: '에디터 한마디',
-          category: '에디터',
+          title: '키워드 매치',
+          category: '키워드',
         });
       }
     });
@@ -90,7 +91,7 @@ const searchData = entries.map(entry => ({
       <a href="/daily/${m.date}" class="block bg-white rounded-xl p-4 border border-main/5 shadow-sm hover:shadow-md hover:border-accent/20 transition-all mb-3">
         <div class="flex items-center gap-2 mb-1">
           <span class="bg-accent/10 text-accent text-xs font-bold px-2 py-0.5 rounded-full">
-            № ${String(m.issue).padStart(3, '0')}
+            Vol.${String(m.issue).padStart(3, '0')}
           </span>
           <span class="text-xs text-sub/50">${m.date}</span>
           <span class="text-xs text-sub/40">·</span>

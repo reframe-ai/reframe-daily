@@ -21,13 +21,17 @@ const entries = (await getCollection('daily')).sort((a, b) => b.id.localeCompare
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-3">
               <span class="bg-accent/10 text-accent text-xs font-bold px-2.5 py-1 rounded-full">
-                № {String(entry.data.issue).padStart(3, '0')}
+                Vol.{String(entry.data.issue).padStart(3, '0')}
               </span>
               <span class="text-sm text-sub">{entry.data.date}</span>
             </div>
             <span class="text-accent opacity-0 group-hover:opacity-100 transition">→</span>
           </div>
-          <p class="text-sm text-main/70 mt-2 line-clamp-2">{entry.data.editorNote}</p>
+          <div class="flex flex-wrap gap-1.5 mt-2">
+            {entry.data.keywords.slice(0, 3).map(kw => (
+              <span class="text-xs text-accent/70 bg-accent/5 px-2 py-0.5 rounded-full">#{kw}</span>
+            ))}
+          </div>
           <div class="flex gap-3 mt-2 text-xs text-sub/50">
             <span>🔧 {entry.data.tools.length}</span>
             <span>⚖️ {entry.data.policy.length}</span>

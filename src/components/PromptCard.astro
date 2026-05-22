@@ -9,26 +9,27 @@ interface Props {
 const { context, title, prompt, howToUse } = Astro.props;
 ---
 
-<article class="bg-white rounded-2xl p-6 border border-main/5 shadow-sm">
-  <div class="flex items-center gap-2 mb-3">
-    <span class="bg-accent/10 text-accent text-xs font-bold px-2.5 py-1 rounded-full">{context}</span>
+<article class="py-14 border-b border-main/8 last:border-b-0">
+  <div class="flex items-center gap-2 mb-6">
+    <span class="bg-accent text-white text-base font-bold px-5 py-2 rounded-full">{context}</span>
   </div>
 
-  <h3 class="text-lg font-bold text-main mb-3">{title}</h3>
+  <h3 class="text-4xl font-bold text-main mb-8">{title}</h3>
 
-  <div class="relative bg-bg-dark rounded-xl p-4 mb-3 group">
-    <pre class="text-sm text-white/90 whitespace-pre-wrap leading-relaxed font-sans">{prompt}</pre>
+  <div class="relative bg-bg-dark rounded-2xl p-10 mb-8 group">
+    <pre class="text-lg text-white/85 whitespace-pre-wrap leading-relaxed font-sans">{prompt}</pre>
     <button
-      class="copy-btn absolute top-3 right-3 bg-white/10 hover:bg-white/20 text-white/60 hover:text-white text-xs px-2.5 py-1 rounded-lg transition opacity-0 group-hover:opacity-100"
+      class="copy-btn absolute top-6 right-6 bg-white/10 hover:bg-white/20 text-white/50 hover:text-white text-base px-5 py-2.5 rounded-lg transition opacity-0 group-hover:opacity-100"
       data-prompt={prompt}
     >
       복사
     </button>
   </div>
 
-  <p class="text-sm text-sub leading-relaxed">
-    <span class="font-medium text-main">사용법:</span> {howToUse}
-  </p>
+  <div class="bg-card-bg rounded-2xl px-10 py-8">
+    <p class="text-base font-bold text-sub/60 mb-3">이렇게 활용하세요</p>
+    <p class="text-lg text-main/70 leading-relaxed">{howToUse}</p>
+  </div>
 </article>
 
 <script>

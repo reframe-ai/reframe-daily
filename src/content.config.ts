@@ -5,9 +5,9 @@ const newsItem = z.object({
   title: z.string(),
   source: z.string(),
   url: z.string(),
-  summary: z.string(),
-  points: z.array(z.string()),
-  tip: z.string().optional(),
+  threeLines: z.array(z.string()),
+  simpleExplain: z.string(),
+  whyItMatters: z.string(),
 });
 
 const promptItem = z.object({
@@ -22,7 +22,7 @@ const daily = defineCollection({
   schema: z.object({
     issue: z.number(),
     date: z.string(),
-    editorNote: z.string(),
+    keywords: z.array(z.string()),
     tools: z.array(newsItem),
     policy: z.array(newsItem),
     prompts: z.array(promptItem),
