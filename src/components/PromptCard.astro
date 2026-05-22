@@ -1,0 +1,43 @@
+---
+interface Props {
+  context: string;
+  title: string;
+  prompt: string;
+  howToUse: string;
+}
+
+const { context, title, prompt, howToUse } = Astro.props;
+---
+
+<article class="bg-white rounded-2xl p-6 border border-main/5 shadow-sm">
+  <div class="flex items-center gap-2 mb-3">
+    <span class="bg-accent/10 text-accent text-xs font-bold px-2.5 py-1 rounded-full">{context}</span>
+  </div>
+
+  <h3 class="text-lg font-bold text-main mb-3">{title}</h3>
+
+  <div class="relative bg-bg-dark rounded-xl p-4 mb-3 group">
+    <pre class="text-sm text-white/90 whitespace-pre-wrap leading-relaxed font-sans">{prompt}</pre>
+    <button
+      class="copy-btn absolute top-3 right-3 bg-white/10 hover:bg-white/20 text-white/60 hover:text-white text-xs px-2.5 py-1 rounded-lg transition opacity-0 group-hover:opacity-100"
+      data-prompt={prompt}
+    >
+      복사
+    </button>
+  </div>
+
+  <p class="text-sm text-sub leading-relaxed">
+    <span class="font-medium text-main">사용법:</span> {howToUse}
+  </p>
+</article>
+
+<script>
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const text = (btn as HTMLElement).dataset.prompt || '';
+      await navigator.clipboard.writeText(text);
+      btn.textContent = '복사됨!';
+      setTimeout(() => { btn.textContent = '복사'; }, 1500);
+    });
+  });
+</script>

@@ -1,0 +1,136 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import NewsCard from '../../components/NewsCard.astro';
+import PromptCard from '../../components/PromptCard.astro';
+import ShareButton from '../../components/ShareButton.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('daily');
+  return entries.map(entry => ({
+    params: { date: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const d = entry.data;
+
+// 이전/다음 호 찾기
+const allEntries = (await getCollection('daily')).sort((a, b) => a.id.localeCompare(b.id));
+const currentIdx = allEntries.findIndex(e => e.id === entry.id);
+const prev = currentIdx > 0 ? allEntries[currentIdx - 1] : null;
+const next = currentIdx < allEntries.length - 1 ? allEntries[currentIdx + 1] : null;
+
+const pageUrl = `${Astro.url.origin}/daily/${entry.id}`;
+const pageTitle = `Re:Frame AI 뉴스 № ${String(d.issue).padStart(3, '0')}`;
+---
+
+<Layout title={`${pageTitle} · ${d.date}`}>
+  <div class="max-w-3xl mx-auto px-6 py-10 animate-fade-in-up">
+
+    <!-- 헤더 -->
+    <header class="mb-10">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="bg-accent text-white text-xs font-bold px-3 py-1.5 rounded-full">
+          № {String(d.issue).padStart(3, '0')}
+        </span>
+        <span class="text-sub text-sm">{d.date}</span>
+      </div>
+      <h1 class="text-3xl md:text-4xl font-bold text-main mb-4">
+        Re:Frame <span class="text-accent">AI 뉴스</span>
+      </h1>
+    </header>
+
+    <!-- 에디터 한마디 -->
+    <div class="bg-accent/5 border-l-4 border-accent rounded-r-xl px-6 py-5 mb-12">
+      <p class="text-xs font-bold text-accent mb-2 uppercase tracking-wider">에디터 한마디</p>
+      <p class="text-sm text-main/80 leading-relaxed">{d.editorNote}</p>
+    </div>
+
+    <!-- AI 도구 · 서비스 -->
+    {d.tools.length > 0 && (
+      <section class="mb-12">
+        <div class="flex items-center gap-3 mb-5">
+          <span class="text-xl">🔧</span>
+          <h2 class="text-xl font-bold text-main">AI 도구 · 서비스</h2>
+          <span class="text-xs text-sub/50">{d.tools.length}건</span>
+        </div>
+        <div class="space-y-4">
+          {d.tools.map(item => (
+            <NewsCard
+              title={item.title}
+              source={item.source}
+              url={item.url}
+              summary={item.summary}
+              points={item.points}
+              tip={item.tip}
+            />
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- AI 정책 · 윤리 -->
+    {d.policy.length > 0 && (
+      <section class="mb-12">
+        <div class="flex items-center gap-3 mb-5">
+          <span class="text-xl">⚖️</span>
+          <h2 class="text-xl font-bold text-main">AI 정책 · 윤리</h2>
+          <span class="text-xs text-sub/50">{d.policy.length}건</span>
+        </div>
+        <div class="space-y-4">
+          {d.policy.map(item => (
+            <NewsCard
+              title={item.title}
+              source={item.source}
+              url={item.url}
+              summary={item.summary}
+              points={item.points}
+              tip={item.tip}
+            />
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- 수업에 바로 쓰는 프롬프트 -->
+    {d.prompts.length > 0 && (
+      <section class="mb-12">
+        <div class="flex items-center gap-3 mb-5">
+          <span class="text-xl">✏️</span>
+          <h2 class="text-xl font-bold text-main">수업에 바로 쓰는 프롬프트</h2>
+          <span class="text-xs text-sub/50">{d.prompts.length}건</span>
+        </div>
+        <div class="space-y-4">
+          {d.prompts.map(item => (
+            <PromptCard
+              context={item.context}
+              title={item.title}
+              prompt={item.prompt}
+              howToUse={item.howToUse}
+            />
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- 네비게이션 -->
+    <nav class="border-t border-main/10 pt-6 flex items-center justify-between text-sm">
+      {prev ? (
+        <a href={`/daily/${prev.id}`} class="text-main/60 hover:text-accent transition">
+          ← № {String(prev.data.issue).padStart(3, '0')}
+        </a>
+      ) : <span />}
+      <a href="/archive" class="text-accent font-medium hover:text-accent/70 transition">아카이브</a>
+      {next ? (
+        <a href={`/daily/${next.id}`} class="text-main/60 hover:text-accent transition">
+          № {String(next.data.issue).padStart(3, '0')} →
+        </a>
+      ) : <span />}
+    </nav>
+
+    <!-- 공유 -->
+    <ShareButton title={pageTitle} url={pageUrl} />
+  </div>
+</Layout>

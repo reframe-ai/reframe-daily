@@ -1,0 +1,103 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+
+const entries = (await getCollection('daily')).sort((a, b) => b.id.localeCompare(a.id));
+
+// 검색용 데이터 준비
+const searchData = entries.map(entry => ({
+  date: entry.id,
+  issue: entry.data.issue,
+  editorNote: entry.data.editorNote,
+  items: [
+    ...entry.data.tools.map(t => ({ ...t, category: '도구' })),
+    ...entry.data.policy.map(p => ({ ...p, category: '정책' })),
+    ...entry.data.prompts.map(p => ({ title: p.title, context: p.context, category: '프롬프트' })),
+  ],
+}));
+---
+
+<Layout title="검색 — Re:Frame AI 뉴스">
+  <div class="max-w-3xl mx-auto px-6 py-10 animate-fade-in-up">
+    <header class="mb-8">
+      <h1 class="text-3xl font-bold text-main mb-2">검색</h1>
+      <p class="text-sub">지난 뉴스에서 키워드를 검색합니다.</p>
+    </header>
+
+    <div class="relative mb-8">
+      <input
+        type="text"
+        id="search-input"
+        placeholder="검색어를 입력하세요 (예: 구글, 프롬프트, 윤리)"
+        class="w-full bg-white border border-main/10 rounded-xl px-5 py-4 text-sm focus:outline-none focus:border-accent/50 focus:ring-2 focus:ring-accent/10 transition"
+      />
+      <span class="absolute right-4 top-1/2 -translate-y-1/2 text-sub/30 text-sm">🔍</span>
+    </div>
+
+    <div id="search-results"></div>
+    <div id="no-results" class="hidden text-center py-12 text-sub/50">
+      검색 결과가 없습니다.
+    </div>
+  </div>
+</Layout>
+
+<script define:vars={{ searchData }}>
+  const input = document.getElementById('search-input');
+  const resultsEl = document.getElementById('search-results');
+  const noResults = document.getElementById('no-results');
+
+  input.addEventListener('input', () => {
+    const q = input.value.trim().toLowerCase();
+    if (!q) {
+      resultsEl.innerHTML = '';
+      noResults.classList.add('hidden');
+      return;
+    }
+
+    const matches = [];
+
+    searchData.forEach(issue => {
+      issue.items.forEach(item => {
+        const text = [item.title, item.summary || '', item.context || '', ...(item.points || [])].join(' ').toLowerCase();
+        if (text.includes(q)) {
+          matches.push({
+            date: issue.date,
+            issue: issue.issue,
+            title: item.title,
+            category: item.category,
+          });
+        }
+      });
+
+      if (issue.editorNote.toLowerCase().includes(q)) {
+        matches.push({
+          date: issue.date,
+          issue: issue.issue,
+          title: '에디터 한마디',
+          category: '에디터',
+        });
+      }
+    });
+
+    if (matches.length === 0) {
+      resultsEl.innerHTML = '';
+      noResults.classList.remove('hidden');
+      return;
+    }
+
+    noResults.classList.add('hidden');
+    resultsEl.innerHTML = matches.map(m => `
+      <a href="/daily/${m.date}" class="block bg-white rounded-xl p-4 border border-main/5 shadow-sm hover:shadow-md hover:border-accent/20 transition-all mb-3">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="bg-accent/10 text-accent text-xs font-bold px-2 py-0.5 rounded-full">
+            № ${String(m.issue).padStart(3, '0')}
+          </span>
+          <span class="text-xs text-sub/50">${m.date}</span>
+          <span class="text-xs text-sub/40">·</span>
+          <span class="text-xs text-sub/50">${m.category}</span>
+        </div>
+        <p class="text-sm font-medium text-main">${m.title}</p>
+      </a>
+    `).join('');
+  });
+</script>

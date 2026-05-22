@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+
+const entries = (await getCollection('daily')).sort((a, b) => b.id.localeCompare(a.id));
+---
+
+<Layout title="아카이브 — Re:Frame AI 뉴스">
+  <div class="max-w-3xl mx-auto px-6 py-10 animate-fade-in-up">
+    <header class="mb-10">
+      <h1 class="text-3xl font-bold text-main mb-2">아카이브</h1>
+      <p class="text-sub">지난 호를 모아볼 수 있습니다.</p>
+    </header>
+
+    <div class="space-y-3">
+      {entries.map(entry => (
+        <a
+          href={`/daily/${entry.id}`}
+          class="block bg-white rounded-xl p-5 border border-main/5 shadow-sm hover:shadow-md hover:border-accent/20 transition-all group"
+        >
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <span class="bg-accent/10 text-accent text-xs font-bold px-2.5 py-1 rounded-full">
+                № {String(entry.data.issue).padStart(3, '0')}
+              </span>
+              <span class="text-sm text-sub">{entry.data.date}</span>
+            </div>
+            <span class="text-accent opacity-0 group-hover:opacity-100 transition">→</span>
+          </div>
+          <p class="text-sm text-main/70 mt-2 line-clamp-2">{entry.data.editorNote}</p>
+          <div class="flex gap-3 mt-2 text-xs text-sub/50">
+            <span>🔧 {entry.data.tools.length}</span>
+            <span>⚖️ {entry.data.policy.length}</span>
+            <span>✏️ {entry.data.prompts.length}</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</Layout>

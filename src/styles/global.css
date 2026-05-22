@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@theme {
+  --color-main: #2D2B27;
+  --color-bg-cream: #FAFAFA;
+  --color-bg-dark: #2A2825;
+  --color-accent: #C05440;
+  --color-sub: #6B6560;
+  --color-card-bg: #F2F2F2;
+
+  --font-sans: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+
+  --animate-fade-in-up: fade-in-up 0.6s ease-out;
+  --animate-fade-in: fade-in 0.4s ease-out;
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-bg-cream);
+  color: var(--color-main);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: #C0544033;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-bg-cream); }
+::-webkit-scrollbar-thumb { background: var(--color-accent); border-radius: 3px; }

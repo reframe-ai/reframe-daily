@@ -1,0 +1,54 @@
+---
+interface Props {
+  title: string;
+  source: string;
+  url: string;
+  summary: string;
+  points: string[];
+  tip?: string;
+}
+
+const { title, source, url, summary, points, tip } = Astro.props;
+---
+
+<article class="bg-white rounded-2xl p-6 border border-main/5 shadow-sm hover:shadow-md transition-shadow">
+  <div class="flex items-start justify-between gap-3 mb-3">
+    <h3 class="text-lg font-bold text-main leading-snug">{title}</h3>
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener"
+      class="shrink-0 text-accent hover:text-accent/70 transition text-sm font-medium"
+      title="원문 보기"
+    >
+      ↗
+    </a>
+  </div>
+
+  <p class="text-sub text-sm leading-relaxed mb-3">{summary}</p>
+
+  {points.length > 0 && (
+    <ul class="space-y-1.5 mb-3">
+      {points.map(point => (
+        <li class="text-sm text-main/80 flex items-start gap-2">
+          <span class="text-accent mt-0.5 shrink-0">•</span>
+          <span>{point}</span>
+        </li>
+      ))}
+    </ul>
+  )}
+
+  {tip && (
+    <div class="bg-accent/5 rounded-xl px-4 py-3 mt-3">
+      <p class="text-sm text-accent font-medium">
+        <span class="mr-1">💡</span> {tip}
+      </p>
+    </div>
+  )}
+
+  <div class="mt-3 flex items-center gap-2 text-xs text-sub/60">
+    <span>{source}</span>
+    <span>·</span>
+    <a href={url} target="_blank" rel="noopener" class="hover:text-accent transition">원문 보기 →</a>
+  </div>
+</article>
