@@ -1,9 +1,18 @@
 ---
 import { getCollection } from 'astro:content';
 
-// 최신 호로 리다이렉트
 const entries = (await getCollection('daily')).sort((a, b) => b.id.localeCompare(a.id));
 const latest = entries[0];
-
-return Astro.redirect(`/daily/${latest.id}`);
+const url = `/daily/${latest.id}`;
 ---
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="refresh" content={`0;url=${url}`} />
+    <link rel="canonical" href={url} />
+    <title>오늘의 AI</title>
+  </head>
+  <body></body>
+</html>
