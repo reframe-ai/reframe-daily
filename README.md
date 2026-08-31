@@ -1,43 +1,32 @@
-# Astro Starter Kit: Minimal
+# 오늘의 AI — Re:Frame Daily
 
-```sh
-npm create astro@latest -- --template minimal
-```
+AI 최신 소식과 활용 포인트를 쉽게 전하는 데일리 브리핑 사이트입니다.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+- 사이트: https://reframe-daily.vercel.app
+- 메인 사이트: https://reframe-ai.github.io (푸터에서 링크)
 
-## 🚀 Project Structure
+## 발행 방법
 
-Inside of your Astro project, you'll see the following folders and files:
+`src/content/daily/YYYY-MM-DD.json` 파일을 main 브랜치에 추가하면
+Vercel이 자동으로 빌드·배포합니다.
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+### 콘텐츠 구조 (JSON)
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+| 필드 | 설명 |
+| --- | --- |
+| `issue` | 호수 (Vol. 번호, 정수) |
+| `date` | 발행일 `YYYY-MM-DD` (파일명과 동일) |
+| `keywords` | 해시태그 키워드 배열 |
+| `tools` | 🔧 AI 도구·서비스 뉴스 (약 4건) |
+| `policy` | ⚖️ 사회·교육 뉴스 (약 2건) |
+| `practice` | ✏️ 오늘의 실습 (프롬프트 + 활용 팁) |
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+각 뉴스 항목: `title`, `source`, `url`, `threeLines`(핵심 3줄), `simpleExplain`(쉽게 말하면), `whyItMatters`(왜 중요하냐면)
 
-Any static assets, like images, can be placed in the `public/` directory.
+## 개발
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+| Command | Action |
+| --- | --- |
+| `npm install` | 의존성 설치 |
+| `npm run dev` | 로컬 개발 서버 (localhost:4321) |
+| `npm run build` | 프로덕션 빌드 (./dist/) |
