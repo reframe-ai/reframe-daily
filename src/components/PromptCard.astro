@@ -7,6 +7,8 @@ interface Props {
 }
 
 const { context, title, prompt, howToUse } = Astro.props;
+
+const [basicPart, advancedPart] = howToUse.split(/한 걸음 더\s*\(중급\)\s*:\s*/);
 ---
 
 <article class="py-12 border-b border-main/8 last:border-b-0">
@@ -27,8 +29,14 @@ const { context, title, prompt, howToUse } = Astro.props;
   </div>
 
   <div class="bg-card-bg rounded-2xl px-8 py-6">
-    <p class="text-sm font-bold text-sub/60 mb-2">이렇게 활용하세요</p>
-    <p class="text-base text-main/70 leading-relaxed">{howToUse}</p>
+    <p class="text-sm font-bold text-sub/60 mb-3">이렇게 활용하세요</p>
+    <p class="text-base text-main/70 leading-loose whitespace-pre-line">{basicPart.trim()}</p>
+    {advancedPart && (
+      <div class="mt-5 pt-5 border-t border-main/10">
+        <p class="text-sm font-bold text-accent mb-2">🚀 한 걸음 더 (중급)</p>
+        <p class="text-base text-main/70 leading-loose whitespace-pre-line">{advancedPart.trim()}</p>
+      </div>
+    )}
   </div>
 </article>
 
