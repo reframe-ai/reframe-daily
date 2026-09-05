@@ -39,18 +39,20 @@ const headlines = (data: (typeof entries)[number]['data']) => {
               <span class="text-accent opacity-0 group-hover:opacity-100 transition">→</span>
             </div>
 
-            <h2 class="text-lg md:text-xl font-bold text-main leading-snug mb-3 group-hover:text-accent transition">
+            <div class="text-[11px] font-bold text-accent/80 uppercase tracking-widest mb-1">하이라이트 기사</div>
+            <h2 class="text-lg md:text-xl font-bold text-main leading-snug mb-4 group-hover:text-accent transition">
               {lead}
             </h2>
 
-            <ul class="grid md:grid-cols-2 gap-x-8 gap-y-1.5 mb-4">
-              {rest.map(t => (
+            <div class="text-[11px] font-bold text-sub/50 uppercase tracking-widest mb-1.5">함께 실린 기사 {rest.length}건</div>
+            <ol class="grid md:grid-cols-2 gap-x-8 gap-y-1.5 mb-4">
+              {rest.map((t, i) => (
                 <li class="flex gap-2 text-[15px] leading-snug text-main/80">
-                  <span class="text-accent/60 shrink-0">·</span>
+                  <span class="text-accent/60 shrink-0 tabular-nums w-4">{i + 1}.</span>
                   <span>{t}</span>
                 </li>
               ))}
-            </ul>
+            </ol>
 
             {practice && (
               <div class="flex items-center gap-2 pt-3 border-t border-main/5 text-sm">
