@@ -3,6 +3,12 @@ import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 
 const entries = (await getCollection('daily')).sort((a, b) => b.id.localeCompare(a.id));
+
+const sections = (data: (typeof entries)[number]['data']) => [
+  { label: 'AI 도구 · 서비스', items: data.tools.map(t => t.title) },
+  { label: '사회 · 교육', items: data.policy.map(p => p.title) },
+  { label: '오늘의 실습', items: data.prompts.map(p => p.title) },
+];
 ---
 
 <Layout title="아카이브 — Re:Frame AI 뉴스">
@@ -12,30 +18,38 @@ const entries = (await getCollection('daily')).sort((a, b) => b.id.localeCompare
       <p class="text-sub">지난 호를 모아볼 수 있습니다.</p>
     </header>
 
-    <div class="space-y-3">
+    <div class="space-y-4">
       {entries.map(entry => (
         <a
           href={`/daily/${entry.id}`}
-          class="block bg-white rounded-xl p-5 border border-main/5 shadow-sm hover:shadow-md hover:border-accent/20 transition-all group"
+          class="block bg-white rounded-xl px-6 py-5 border border-main/5 shadow-sm hover:shadow-md hover:border-accent/20 transition-all group"
         >
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-3">
-              <span class="bg-accent/10 text-accent text-xs font-bold px-2.5 py-1 rounded-full">
+          <div class="flex items-baseline justify-between mb-4">
+            <div class="flex items-baseline gap-3">
+              <span class="bg-accent/10 text-accent text-sm font-bold px-3 py-1 rounded-full">
                 Vol.{String(entry.data.issue).padStart(3, '0')}
               </span>
-              <span class="text-sm text-sub">{entry.data.date}</span>
+              <span class="text-xs text-sub/60 tabular-nums">{entry.data.date}</span>
             </div>
             <span class="text-accent opacity-0 group-hover:opacity-100 transition">→</span>
           </div>
-          <div class="flex flex-wrap gap-1.5 mt-2">
-            {entry.data.keywords.slice(0, 3).map(kw => (
-              <span class="text-xs text-accent/70 bg-accent/5 px-2 py-0.5 rounded-full">#{kw}</span>
+
+          <div class="space-y-3">
+            {sections(entry.data).map(sec => (
+              <div class="md:grid md:grid-cols-[6.5rem_1fr] md:gap-4">
+                <div class="text-[11px] font-bold text-sub/40 uppercase tracking-widest mb-1 md:mb-0 md:pt-1">
+                  {sec.label}
+                </div>
+                <ul class="space-y-1">
+                  {sec.items.map(title => (
+                    <li class="flex gap-2 text-[15px] md:text-base leading-snug text-main">
+                      <span class="text-accent/50 shrink-0 select-none">·</span>
+                      <span>{title}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
-          </div>
-          <div class="flex gap-3 mt-2 text-xs text-sub/50">
-            <span>🔧 {entry.data.tools.length}</span>
-            <span>⚖️ {entry.data.policy.length}</span>
-            <span>✏️ {entry.data.prompts.length}</span>
           </div>
         </a>
       ))}
