@@ -4,11 +4,13 @@ import Layout from '../layouts/Layout.astro';
 
 const entries = (await getCollection('daily')).sort((a, b) => b.id.localeCompare(a.id));
 
-const sections = (data: (typeof entries)[number]['data']) => [
-  { label: 'AI 도구 · 서비스', items: data.tools.map(t => t.title) },
-  { label: '사회 · 교육', items: data.policy.map(p => p.title) },
-  { label: '오늘의 실습', items: data.prompts.map(p => p.title) },
-];
+// "핵심 — 부연" 형태의 제목에서 핵심만 남긴다
+const core = (title: string) => title.split(/\s+[—–-]\s+/)[0].trim();
+
+const headlines = (data: (typeof entries)[number]['data']) => {
+  const all = [...data.tools, ...data.policy].map(n => core(n.title));
+  return { lead: all[0], rest: all.slice(1) };
+};
 ---
 
 <Layout title="아카이브 — Re:Frame AI 뉴스">
@@ -19,40 +21,46 @@ const sections = (data: (typeof entries)[number]['data']) => [
     </header>
 
     <div class="space-y-4">
-      {entries.map(entry => (
-        <a
-          href={`/daily/${entry.id}`}
-          class="block bg-white rounded-xl px-6 py-5 border border-main/5 shadow-sm hover:shadow-md hover:border-accent/20 transition-all group"
-        >
-          <div class="flex items-baseline justify-between mb-4">
-            <div class="flex items-baseline gap-3">
-              <span class="bg-accent/10 text-accent text-sm font-bold px-3 py-1 rounded-full">
-                Vol.{String(entry.data.issue).padStart(3, '0')}
-              </span>
-              <span class="text-xs text-sub/60 tabular-nums">{entry.data.date}</span>
-            </div>
-            <span class="text-accent opacity-0 group-hover:opacity-100 transition">→</span>
-          </div>
-
-          <div class="space-y-3">
-            {sections(entry.data).map(sec => (
-              <div class="md:grid md:grid-cols-[6.5rem_1fr] md:gap-4">
-                <div class="text-[11px] font-bold text-sub/40 uppercase tracking-widest mb-1 md:mb-0 md:pt-1">
-                  {sec.label}
-                </div>
-                <ul class="space-y-1">
-                  {sec.items.map(title => (
-                    <li class="flex gap-2 text-[15px] md:text-base leading-snug text-main">
-                      <span class="text-accent/50 shrink-0 select-none">·</span>
-                      <span>{title}</span>
-                    </li>
-                  ))}
-                </ul>
+      {entries.map(entry => {
+        const { lead, rest } = headlines(entry.data);
+        const practice = entry.data.prompts[0]?.title;
+        return (
+          <a
+            href={`/daily/${entry.id}`}
+            class="block bg-white rounded-xl px-6 py-5 border border-main/5 shadow-sm hover:shadow-md hover:border-accent/20 transition-all group"
+          >
+            <div class="flex items-baseline justify-between mb-3">
+              <div class="flex items-baseline gap-3">
+                <span class="bg-accent/10 text-accent text-sm font-bold px-3 py-1 rounded-full">
+                  Vol.{String(entry.data.issue).padStart(3, '0')}
+                </span>
+                <span class="text-xs text-sub/60 tabular-nums">{entry.data.date}</span>
               </div>
-            ))}
-          </div>
-        </a>
-      ))}
+              <span class="text-accent opacity-0 group-hover:opacity-100 transition">→</span>
+            </div>
+
+            <h2 class="text-lg md:text-xl font-bold text-main leading-snug mb-3 group-hover:text-accent transition">
+              {lead}
+            </h2>
+
+            <ul class="grid md:grid-cols-2 gap-x-8 gap-y-1.5 mb-4">
+              {rest.map(t => (
+                <li class="flex gap-2 text-[15px] leading-snug text-main/80">
+                  <span class="text-accent/60 shrink-0">·</span>
+                  <span>{t}</span>
+                </li>
+              ))}
+            </ul>
+
+            {practice && (
+              <div class="flex items-center gap-2 pt-3 border-t border-main/5 text-sm">
+                <span class="text-[11px] font-bold text-accent/70 uppercase tracking-widest shrink-0">실습</span>
+                <span class="text-sub">{practice}</span>
+              </div>
+            )}
+          </a>
+        );
+      })}
     </div>
   </div>
 </Layout>
